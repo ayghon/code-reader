@@ -1,23 +1,25 @@
 import { Stack } from 'expo-router';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { NativeBaseProvider } from 'native-base';
 
-import { CodeProvider } from '../src/context/code.context';
+import { CodeProvider } from '../context/code.context';
 
 export default function Layout() {
   return (
-    <PaperProvider>
+    <NativeBaseProvider>
       <CodeProvider>
         <Stack>
           <Stack.Screen name="index" />
           <Stack.Screen
             name="scanner"
             options={{
+              headerTitle: 'Scan something',
+              headerTransparent: true,
               // Set the presentation mode to modal for our modal route.
               presentation: 'modal',
             }}
           />
         </Stack>
       </CodeProvider>
-    </PaperProvider>
+    </NativeBaseProvider>
   );
 }

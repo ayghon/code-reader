@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "code-reader",
     "name": "code-reader",
     "slug": "code-reader",
     "version": "1.0.0",

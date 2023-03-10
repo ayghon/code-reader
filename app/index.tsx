@@ -9,7 +9,7 @@ import { useCodeState } from '../src/context/code.context';
 
 export default function Index() {
   const { code, setCode } = useCodeState();
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const hideModal = () => {
     setCode(undefined);
@@ -46,7 +46,12 @@ export default function Index() {
           <Text variant="headlineMedium">Add new entry</Text>
           <Text variant="bodyMedium">Bar code data {code} has been scanned!</Text>
           <TextInput label="Label" mode="outlined" />
-          <TextInput label="Buying price" mode="outlined" inputMode="decimal" />
+          <TextInput
+            label="Buying price"
+            mode="outlined"
+            inputMode="decimal"
+            right={<TextInput.Icon icon="currency-eur" />}
+          />
           <Button style={{ alignSelf: 'flex-end' }} mode="contained" onPress={hideModal}>
             Add
           </Button>

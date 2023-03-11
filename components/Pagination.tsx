@@ -52,7 +52,7 @@ export const Pagination: FC<PaginationProps> = ({
           variant="ghost"
           size={10}
           onPress={() => onChange(0)}
-          disabled={page === 1}>
+          disabled={page === 0}>
           <Icon as={MaterialIcons} name="skip-previous" size={12} />
         </Button>
         <Button
@@ -62,7 +62,7 @@ export const Pagination: FC<PaginationProps> = ({
           variant="ghost"
           size={10}
           onPress={() => onChange(page - 1)}
-          disabled={page === 1}>
+          disabled={page === 0}>
           <Icon as={MaterialIcons} name="navigate-before" size={12} />
         </Button>
         <Button

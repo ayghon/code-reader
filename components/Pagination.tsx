@@ -19,6 +19,14 @@ export const Pagination: FC<PaginationProps> = ({
   itemsPerPage,
   onChange,
 }) => {
+  const totalPages = Math.floor(total / itemsPerPage);
+
+  const displayValues = {
+    page: page + 1,
+    totalPages: totalPages + 1,
+    total,
+  };
+
   return (
     <Column space={4} justifyContent="space-around" padding={2}>
       <Row space={2} alignItems="center">
@@ -33,7 +41,7 @@ export const Pagination: FC<PaginationProps> = ({
           ))}
         </Select>
         <Text fontSize={11}>
-          {page}-{page + 1} of {total}
+          {displayValues.page}-{displayValues.totalPages} of {displayValues.total}
         </Text>
       </Row>
       <Row space={2} justifyContent="center">
@@ -42,40 +50,40 @@ export const Pagination: FC<PaginationProps> = ({
             backgroundColor: 'gray.200',
           }}
           variant="ghost"
-          size={8}
+          size={10}
           onPress={() => onChange(0)}
-          disabled={page === 0}>
-          <Icon as={MaterialIcons} name="skip-previous" size={8} />
+          disabled={page === 1}>
+          <Icon as={MaterialIcons} name="skip-previous" size={12} />
         </Button>
         <Button
           _pressed={{
             backgroundColor: 'gray.200',
           }}
           variant="ghost"
-          size={8}
+          size={10}
           onPress={() => onChange(page - 1)}
-          disabled={page === 0}>
-          <Icon as={MaterialIcons} name="navigate-before" size={8} />
+          disabled={page === 1}>
+          <Icon as={MaterialIcons} name="navigate-before" size={12} />
         </Button>
         <Button
           _pressed={{
             backgroundColor: 'gray.200',
           }}
           variant="ghost"
-          size={8}
+          size={10}
           onPress={() => onChange(page + 1)}
-          disabled={page === total}>
-          <Icon as={MaterialIcons} name="navigate-next" size={8} />
+          disabled={page === totalPages}>
+          <Icon as={MaterialIcons} name="navigate-next" size={12} />
         </Button>
         <Button
           _pressed={{
             backgroundColor: 'gray.200',
           }}
           variant="ghost"
-          size={8}
-          onPress={() => onChange(total)}
-          disabled={page === total}>
-          <Icon as={MaterialIcons} name="skip-next" size={8} />
+          size={10}
+          onPress={() => onChange(totalPages)}
+          disabled={page === totalPages}>
+          <Icon as={MaterialIcons} name="skip-next" size={12} />
         </Button>
       </Row>
     </Column>

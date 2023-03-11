@@ -21,8 +21,6 @@ export const ArticlesList = () => {
   const [page, setPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(pageOptions[1]);
 
-  const total = Math.ceil(articles.length / itemsPerPage) ?? 1;
-
   useEffect(() => {
     setPage(0);
   }, [itemsPerPage]);
@@ -41,7 +39,7 @@ export const ArticlesList = () => {
         <Pagination
           itemsPerPage={itemsPerPage}
           page={page}
-          total={total}
+          total={articles.length}
           onChange={setPage}
           pageOptions={pageOptions}
           onPageOptionsChange={setItemsPerPage}

@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Button, Icon, Stack, Text } from 'native-base';
+import { Button, Icon, Stack } from 'native-base';
 import React, { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -13,17 +13,21 @@ type AddArticleModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSave: (data: Article) => void;
+  isEdit?: boolean;
+  values?: Article;
 };
 
 export const AddArticleModal: FC<AddArticleModalProps> = ({
   isOpen,
   onClose,
   onSave,
+  isEdit = false,
+  values,
 }) => {
   const { code, setCode } = useCodeState();
 
   const methods = useForm<Article>({
-    defaultValues: {
+    defaultValues: values || {
       id: code,
       label: '',
       price: undefined,
@@ -38,29 +42,36 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
     onClose();
   };
 
-  const saveHandler = (values: Article) => {
+  const saveHandler = (formValues: Article) => {
     if (code) {
-      onSave({ ...values, id: code });
-      closeHandler();
+      onSave({ ...formValues, id: code });
+    } else {
+      onSave(formValues);
     }
+
+    closeHandler();
   };
+
+  const title = isEdit
+    ? `Edit entry: ${values?.label}`
+    : `Add new entry for: ${code}`;
+  const saveButtonTitle = isEdit ? 'Edit' : 'Add';
 
   return (
     <Modal
       isOpen={isOpen}
-      title="Add new entry"
+      title={title}
       onClose={closeHandler}
       footerButtons={
         <Button
           onPress={methods.handleSubmit(saveHandler)}
           style={{ alignSelf: 'flex-end' }}
           variant="solid">
-          Add
+          {saveButtonTitle}
         </Button>
       }>
       <FormProvider {...methods}>
         <Stack space={6}>
-          <Text>Bar code data {code} has been scanned!</Text>
           <ControlledInput
             rules={{ required: validationRules.required }}
             name="label"

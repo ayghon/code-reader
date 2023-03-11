@@ -5,6 +5,7 @@ import { FlatList } from 'react-native';
 import { ArticleRow } from './ArticleRow';
 import { ArticlesHeaderName, ArticlesTableHeader } from './ArticlesTableHeader';
 import { useArticlesState } from '../../context/articles.context';
+import { Article } from '../../types';
 import { sortArticles } from '../../utils/articles-sort';
 import { SortDirection, useHeaderSort } from '../../utils/header-sort';
 import { Pagination } from '../Pagination';
@@ -14,9 +15,14 @@ const pageOptions = [5, 10, 20, 50, 100];
 export const ArticlesList = () => {
   const [page, setPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(pageOptions[1]);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
   const { headerSortDirection, sortColumn } =
     useHeaderSort<ArticlesHeaderName>();
-  const { articles, isLoading } = useArticlesState();
+  const { articles, isLoading, editArticle } = useArticlesState();
+
+  const handleEdit = (values: Article) => {
+    editArticle(values.id, values);
+  };
 
   useEffect(() => {
     setPage(0);
@@ -63,7 +69,14 @@ export const ArticlesList = () => {
         />
       }
       renderItem={({ item: { id, label, price } }) => (
-        <ArticleRow id={id} label={label} price={price} />
+        <ArticleRow
+          handleEdit={handleEdit}
+          setEditModalOpen={setEditModalOpen}
+          isEditModalOpen={isEditModalOpen}
+          id={id}
+          label={label}
+          price={price}
+        />
       )}
     />
   );

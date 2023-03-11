@@ -62,8 +62,8 @@ export const ArticlesList = () => {
           onPageOptionsChange={setItemsPerPage}
         />
       }
-      renderItem={({ item: { label, price } }) => (
-        <ArticleRow label={label} price={price} />
+      renderItem={({ item: { id, label, price } }) => (
+        <ArticleRow id={id} label={label} price={price} />
       )}
     />
   );

@@ -4,8 +4,8 @@ import { Spinner, View } from 'native-base';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { PermissionNotGranted } from '../../components/scanner/PermissionNotGranted';
-import { useCodeState } from '../../context/code.context';
+import { PermissionNotGranted } from '../components/scanner/PermissionNotGranted';
+import { useCodeState } from '../context/code.context';
 
 export default function Scanner() {
   const [permission] = Camera.useCameraPermissions();

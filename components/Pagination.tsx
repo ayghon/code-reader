@@ -33,7 +33,9 @@ export const Pagination: FC<PaginationProps> = ({
         <Text fontSize={11}>Rows per page</Text>
         <Select
           selectedValue={itemsPerPage.toString()}
-          onValueChange={(itemValue) => onPageOptionsChange(parseInt(itemValue, 10))}
+          onValueChange={(itemValue) =>
+            onPageOptionsChange(parseInt(itemValue, 10))
+          }
           width={12}
           dropdownIcon={<Icon as={MaterialIcons} name="keyboard-arrow-down" />}>
           {pageOptions.map((option) => (
@@ -41,7 +43,8 @@ export const Pagination: FC<PaginationProps> = ({
           ))}
         </Select>
         <Text fontSize={11}>
-          {displayValues.page}-{displayValues.totalPages} of {displayValues.total}
+          {displayValues.page}-{displayValues.totalPages} of{' '}
+          {displayValues.total}
         </Text>
       </Row>
       <Row space={2} justifyContent="center">

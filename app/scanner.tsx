@@ -1,5 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { BarCodeScanningResult, Camera, CameraType, FlashMode } from 'expo-camera';
+import {
+  BarCodeScanningResult,
+  Camera,
+  CameraType,
+  FlashMode,
+} from 'expo-camera';
 import { useRouter } from 'expo-router';
 import { Icon, IconButton, Spinner, View } from 'native-base';
 import React, { useState } from 'react';
@@ -42,7 +47,12 @@ export default function Scanner() {
         <IconButton
           alignSelf="center"
           onPress={() => setFlashOn((s) => !s)}
-          icon={<Icon as={MaterialIcons} name={isFlashOn ? 'flash-off' : 'flash-on'} />}
+          icon={
+            <Icon
+              as={MaterialIcons}
+              name={isFlashOn ? 'flash-off' : 'flash-on'}
+            />
+          }
           variant={isFlashOn ? 'solid' : 'subtle'}
           backgroundColor={isFlashOn ? undefined : 'gray.50'}
           rounded="full"

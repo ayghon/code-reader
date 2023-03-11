@@ -14,10 +14,15 @@ type ArticlesTableHeaderProps = {
   sortColumn: (name: ArticlesHeaderName) => void;
 };
 
-export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({ sort, sortColumn }) => {
+export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({
+  sort,
+  sortColumn,
+}) => {
   return (
     <Row paddingX={4} paddingY={2}>
-      <Pressable width="80%" onPress={() => sortColumn(ArticlesHeaderName.Label)}>
+      <Pressable
+        width="80%"
+        onPress={() => sortColumn(ArticlesHeaderName.Label)}>
         <Flex direction="row" align="center">
           <Text>Label</Text>
           {sort &&
@@ -25,7 +30,11 @@ export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({ sort, sortCo
             sort.direction !== SortDirection.None && (
               <Icon
                 as={MaterialIcons}
-                name={sort.direction === SortDirection.Asc ? 'arrow-drop-up' : 'arrow-drop-down'}
+                name={
+                  sort.direction === SortDirection.Asc
+                    ? 'arrow-drop-up'
+                    : 'arrow-drop-down'
+                }
               />
             )}
         </Flex>
@@ -41,7 +50,11 @@ export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({ sort, sortCo
             sort.direction !== SortDirection.None && (
               <Icon
                 as={MaterialIcons}
-                name={sort.direction === SortDirection.Asc ? 'arrow-drop-up' : 'arrow-drop-down'}
+                name={
+                  sort.direction === SortDirection.Asc
+                    ? 'arrow-drop-up'
+                    : 'arrow-drop-down'
+                }
               />
             )}
         </Flex>

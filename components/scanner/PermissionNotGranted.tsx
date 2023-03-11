@@ -6,7 +6,9 @@ export const PermissionNotGranted = () => {
 
   return (
     <View flex={1} justifyContent="center">
-      <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+      <Text style={{ textAlign: 'center' }}>
+        We need your permission to show the camera
+      </Text>
       <Button onPress={requestPermission}>grant permission</Button>
     </View>
   );

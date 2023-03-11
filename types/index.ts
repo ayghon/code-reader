@@ -3,3 +3,7 @@ export type Article = {
   label: string;
   price: number;
 };
+
+export enum StorageKeys {
+  Articles = 'articles',
+}

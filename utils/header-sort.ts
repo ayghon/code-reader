@@ -12,7 +12,8 @@ export type HeaderSort<THeaderNames> = {
 };
 
 export function useHeaderSort<THeaderNames>() {
-  const [headerSortDirection, setHeaderSortDirection] = useState<HeaderSort<THeaderNames>>();
+  const [headerSortDirection, setHeaderSortDirection] =
+    useState<HeaderSort<THeaderNames>>();
 
   // -> none -> asc -> desc ->
   const sortColumn = (name: THeaderNames) => {

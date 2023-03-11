@@ -1,29 +1,22 @@
-import { faker } from '@faker-js/faker';
+import { Center, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 
 import { ArticleRow } from './ArticleRow';
 import { ArticlesHeaderName, ArticlesTableHeader } from './ArticlesTableHeader';
-import { Article } from '../../types';
+import { useArticlesState } from '../../context/articles.context';
 import { sortArticles } from '../../utils/articles-sort';
 import { SortDirection, useHeaderSort } from '../../utils/header-sort';
 import { Pagination } from '../Pagination';
-
-const articles: Article[] = faker.helpers.uniqueArray(
-  () => ({
-    id: faker.datatype.uuid(),
-    label: faker.random.words(5),
-    price: faker.datatype.float({ max: 50 }),
-  }),
-  faker.datatype.number({ max: 100, min: 15 })
-);
 
 const pageOptions = [5, 10, 20, 50, 100];
 
 export const ArticlesList = () => {
   const [page, setPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(pageOptions[1]);
-  const { headerSortDirection, sortColumn } = useHeaderSort<ArticlesHeaderName>();
+  const { headerSortDirection, sortColumn } =
+    useHeaderSort<ArticlesHeaderName>();
+  const { articles, isLoading } = useArticlesState();
 
   useEffect(() => {
     setPage(0);
@@ -35,11 +28,23 @@ export const ArticlesList = () => {
       : articles
   ).slice(page * itemsPerPage, page * itemsPerPage + itemsPerPage);
 
+  if (isLoading) {
+    return (
+      <Center height="80%">
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <FlatList
       ListHeaderComponent={
-        <ArticlesTableHeader sort={headerSortDirection} sortColumn={sortColumn} />
+        <ArticlesTableHeader
+          sort={headerSortDirection}
+          sortColumn={sortColumn}
+        />
       }
+      ListEmptyComponent={() => <Center height="100%">No data</Center>}
       stickyHeaderIndices={[0]}
       ListHeaderComponentStyle={{
         backgroundColor: 'white',
@@ -57,7 +62,9 @@ export const ArticlesList = () => {
           onPageOptionsChange={setItemsPerPage}
         />
       }
-      renderItem={({ item: { label, price } }) => <ArticleRow label={label} price={price} />}
+      renderItem={({ item: { label, price } }) => (
+        <ArticleRow label={label} price={price} />
+      )}
     />
   );
 };

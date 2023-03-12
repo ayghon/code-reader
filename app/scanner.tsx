@@ -14,7 +14,7 @@ import { PermissionNotGranted } from '../components/scanner/PermissionNotGranted
 import { useCodeState } from '../context/code.context';
 
 export default function Scanner() {
-  const [permission] = Camera.useCameraPermissions();
+  const [permission, requestPermission] = Camera.useCameraPermissions();
   const [scanned, setScanned] = useState(false);
   const [isFlashOn, setFlashOn] = useState(false);
   const { setCode } = useCodeState();
@@ -28,7 +28,7 @@ export default function Scanner() {
 
   if (!permission.granted) {
     // Camera permissions are not granted yet
-    return <PermissionNotGranted />;
+    return <PermissionNotGranted onRequest={requestPermission} />;
   }
 
   const handleBarCodeScanned = ({ data }: BarCodeScanningResult) => {

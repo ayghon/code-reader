@@ -1,15 +1,18 @@
-import { Camera } from 'expo-camera';
-import { Button, Text, View } from 'native-base';
+import { PermissionResponse } from 'expo-barcode-scanner';
+import { Button, Center, Text } from 'native-base';
+import { FC } from 'react';
 
-export const PermissionNotGranted = () => {
-  const [, requestPermission] = Camera.useCameraPermissions();
+type PermissionNotGrantedProps = {
+  onRequest: () => Promise<PermissionResponse>;
+};
 
+export const PermissionNotGranted: FC<PermissionNotGrantedProps> = ({
+  onRequest,
+}) => {
   return (
-    <View flex={1} justifyContent="center">
-      <Text style={{ textAlign: 'center' }}>
-        We need your permission to show the camera
-      </Text>
-      <Button onPress={requestPermission}>grant permission</Button>
-    </View>
+    <Center flex={1} justifyContent="center">
+      <Text marginBottom={4}>We need your permission to show the camera</Text>
+      <Button onPress={onRequest}>Grant permission</Button>
+    </Center>
   );
 };

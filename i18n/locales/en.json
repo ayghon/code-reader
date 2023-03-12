@@ -1,0 +1,21 @@
+{
+  "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+  "app.index.article_list.column_header.label": "Label",
+  "app.index.article_list.column_header.price": "Price",
+  "app.index.article_list.empty": "No data",
+  "app.index.article_list.swipe.delete": "Delete",
+  "app.index.article_list.swipe.edit": "Edit",
+  "app.index.modal.add_article.create.save": "Add",
+  "app.index.modal.add_article.create.title": "Add new entry for: {label}",
+  "app.index.modal.add_article.edit.save": "Edit",
+  "app.index.modal.add_article.edit.title": "Edit entry: {code}",
+  "app.index.modal.add_article.input.label.label": "Label",
+  "app.index.modal.add_article.input.price.label": "Buying price",
+  "app.layout.index.header_title": "Article list",
+  "language.en": "English",
+  "language.fr": "French",
+  "language.tr": "Turkish",
+  "pagination.rows_per_page": "Rows per page",
+  "permissions.camera.not_granted.explanation": "We need your permission to show the camera",
+  "permissions.camera.not_granted.grant": "Grant permission"
+}

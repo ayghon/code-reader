@@ -1,15 +1,27 @@
-import { Camera } from 'expo-camera';
-import { Button, Text, View } from 'native-base';
+import { PermissionResponse } from 'expo-barcode-scanner';
+import { Button, Center, Text } from 'native-base';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-export const PermissionNotGranted = () => {
-  const [, requestPermission] = Camera.useCameraPermissions();
+import { i18nKeys } from '../../i18n/keys';
+
+type PermissionNotGrantedProps = {
+  onRequest: () => Promise<PermissionResponse>;
+};
+
+export const PermissionNotGranted: FC<PermissionNotGrantedProps> = ({
+  onRequest,
+}) => {
+  const { t } = useTranslation();
 
   return (
-    <View flex={1} justifyContent="center">
-      <Text style={{ textAlign: 'center' }}>
-        We need your permission to show the camera
+    <Center flex={1} justifyContent="center">
+      <Text marginBottom={4}>
+        {t(i18nKeys.permissions.camera.not_granted.explanation)}
       </Text>
-      <Button onPress={requestPermission}>grant permission</Button>
-    </View>
+      <Button onPress={onRequest}>
+        {t(i18nKeys.permissions.camera.not_granted.grant)}
+      </Button>
+    </Center>
   );
 };

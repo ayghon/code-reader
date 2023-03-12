@@ -1,5 +1,5 @@
 import { HeaderSort, SortDirection } from './header-sort';
-import { ArticlesHeaderName } from '../components/articles-list/ArticlesTableHeader';
+import { ArticlesHeaderName } from '../components/article-list/ArticlesTableHeader';
 import { Article } from '../types';
 
 export const sortArticles = (

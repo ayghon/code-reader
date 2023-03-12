@@ -2,11 +2,11 @@ import { Column, Divider, Flex, Row, Text } from 'native-base';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Swipeable } from 'react-native-gesture-handler';
 
+import { AddArticleModal } from './AddArticleModal';
 import { SwipeDeleteAction } from './SwipeDeleteAction';
 import { SwipeEditAction } from './SwipeEditAction';
 import { useArticlesState } from '../../context/articles.context';
 import { Article } from '../../types';
-import { AddArticleModal } from '../AddArticleModal';
 
 type ArticleRowProps = {
   id: string;

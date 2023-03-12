@@ -1,10 +1,5 @@
 {
   "expo": {
-    "locales": {
-      "en": "./i18n/locales/en.json",
-      "fr": "./i18n/locales/fr.json",
-      "tr": "./i18n/locales/tr.json"
-    },
     "scheme": "code-reader",
     "name": "code-reader",
     "slug": "code-reader",
@@ -15,19 +10,20 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FF3336"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "CFBundleAllowMixedLocalizations": true
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
       }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FF3336"
+        "backgroundColor": "#ffffff"
       },
       "permissions": [
         "android.permission.CAMERA",
@@ -50,8 +46,7 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
         }
-      ],
-      "expo-localization"
+      ]
     ],
     "extra": {
       "eas": {

@@ -6,16 +6,15 @@ import {
   FlashMode,
 } from 'expo-camera';
 import { useRouter } from 'expo-router';
-import { Icon, IconButton, View } from 'native-base';
+import { Icon, IconButton, Spinner, View } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { PermissionNotGranted } from '../components/scanner/PermissionNotGranted';
 import { useCodeState } from '../context/code.context';
-import { ScreenLoader } from '../ui/ScreenLoader';
 
 export default function Scanner() {
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [permission] = Camera.useCameraPermissions();
   const [scanned, setScanned] = useState(false);
   const [isFlashOn, setFlashOn] = useState(false);
   const { setCode } = useCodeState();
@@ -24,12 +23,12 @@ export default function Scanner() {
 
   if (!permission) {
     // Camera permissions are still loading
-    return <ScreenLoader />;
+    return <Spinner />;
   }
 
   if (!permission.granted) {
     // Camera permissions are not granted yet
-    return <PermissionNotGranted onRequest={requestPermission} />;
+    return <PermissionNotGranted />;
   }
 
   const handleBarCodeScanned = ({ data }: BarCodeScanningResult) => {

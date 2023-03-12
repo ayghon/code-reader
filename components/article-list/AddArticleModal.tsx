@@ -2,12 +2,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Button, Icon, Stack } from 'native-base';
 import React, { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
-import { ControlledInput } from './ControlledInput';
-import { Modal } from './Modal';
-import { useCodeState } from '../context/code.context';
-import { Article } from '../types';
-import { validationRules } from '../utils/validation';
+import { useCodeState } from '../../context/code.context';
+import { i18nKeys } from '../../i18n/keys';
+import { Article } from '../../types';
+import { Modal } from '../../ui/Modal';
+import { validationRules } from '../../utils/validation';
+import { ControlledInput } from '../ControlledInput';
 
 type AddArticleModalProps = {
   isOpen: boolean;
@@ -24,6 +26,7 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
   isEdit = false,
   values,
 }) => {
+  const { t } = useTranslation();
   const { code, setCode } = useCodeState();
 
   const methods = useForm<Article>({
@@ -53,9 +56,15 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
   };
 
   const title = isEdit
-    ? `Edit entry: ${values?.label}`
-    : `Add new entry for: ${code}`;
-  const saveButtonTitle = isEdit ? 'Edit' : 'Add';
+    ? t(i18nKeys.app.index.modal.add_article.edit.title, {
+        label: values?.label || '',
+      })
+    : t(i18nKeys.app.index.modal.add_article.create.title, {
+        code,
+      });
+  const saveButtonTitle = isEdit
+    ? t(i18nKeys.app.index.modal.add_article.edit.save)
+    : t(i18nKeys.app.index.modal.add_article.create.save);
 
   return (
     <Modal
@@ -75,13 +84,16 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
           <ControlledInput
             rules={{ required: validationRules.required }}
             name="label"
-            inputProps={{ label: 'Label', isRequired: true }}
+            inputProps={{
+              label: t(i18nKeys.app.index.modal.add_article.input.label.label),
+              isRequired: true,
+            }}
           />
           <ControlledInput
             rules={{ required: validationRules.required }}
             name="price"
             inputProps={{
-              label: 'Buying price',
+              label: t(i18nKeys.app.index.modal.add_article.input.price.label),
               isRequired: true,
               inputMode: 'decimal',
               rightElement: (

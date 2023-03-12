@@ -1,6 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button, Column, Icon, Row, Select, Text } from 'native-base';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { i18nKeys } from '../i18n/keys';
 
 type PaginationProps = {
   itemsPerPage: number;
@@ -19,6 +22,8 @@ export const Pagination: FC<PaginationProps> = ({
   itemsPerPage,
   onChange,
 }) => {
+  const { t } = useTranslation();
+
   const totalPages = Math.floor(total / itemsPerPage);
 
   const displayValues = {
@@ -30,7 +35,7 @@ export const Pagination: FC<PaginationProps> = ({
   return (
     <Column space={4} justifyContent="space-around" padding={2}>
       <Row space={2} alignItems="center">
-        <Text fontSize={11}>Rows per page</Text>
+        <Text fontSize={11}>{t(i18nKeys.pagination.rows_per_page)}</Text>
         <Select
           selectedValue={itemsPerPage.toString()}
           onValueChange={(itemValue) =>
@@ -39,7 +44,11 @@ export const Pagination: FC<PaginationProps> = ({
           width={12}
           dropdownIcon={<Icon as={MaterialIcons} name="keyboard-arrow-down" />}>
           {pageOptions.map((option) => (
-            <Select.Item label={option.toString()} value={option.toString()} />
+            <Select.Item
+              key={option}
+              label={option.toString()}
+              value={option.toString()}
+            />
           ))}
         </Select>
         <Text fontSize={11}>

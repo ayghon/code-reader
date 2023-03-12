@@ -6,12 +6,13 @@ import {
   FlashMode,
 } from 'expo-camera';
 import { useRouter } from 'expo-router';
-import { Icon, IconButton, Spinner, View } from 'native-base';
+import { Icon, IconButton, View } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { PermissionNotGranted } from '../components/scanner/PermissionNotGranted';
 import { useCodeState } from '../context/code.context';
+import { ScreenLoader } from '../ui/ScreenLoader';
 
 export default function Scanner() {
   const [permission, requestPermission] = Camera.useCameraPermissions();
@@ -23,7 +24,7 @@ export default function Scanner() {
 
   if (!permission) {
     // Camera permissions are still loading
-    return <Spinner />;
+    return <ScreenLoader />;
   }
 
   if (!permission.granted) {

@@ -1,0 +1,21 @@
+{
+  "app.layout.index.header_title": "Liste d'articles",
+  "app.index.modal.add_article.create.save": "Ajouter",
+  "app.index.modal.add_article.create.title": "Ajouter une entrée pour: {label}",
+  "app.index.modal.add_article.edit.save": "Modifier",
+  "app.index.modal.add_article.edit.title": "Modifier l'entrée: {code}",
+  "app.index.modal.add_article.input.label.label": "Label",
+  "app.index.modal.add_article.input.price.label": "Prix d'achat",
+  "app.index.article_list.empty": "Aucune data",
+  "pagination.rows_per_page": "Lignes par page",
+  "app.index.article_list.column_header.label": "Label",
+  "app.index.article_list.column_header.price": "Prix",
+  "permissions.camera.not_granted.explanation": "Nous avons besoin de votre permission pour montrer la caméra",
+  "permissions.camera.not_granted.grant": "Donner la permission",
+  "app.index.article_list.swipe.delete": "Supprimer",
+  "app.index.article_list.swipe.edit": "Modifier",
+  "NSCameraUsageDescription": "Autoriser $(PRODUCT_NAME) à accéder à votre microphone",
+  "language.en": "Anglais",
+  "language.fr": "Français",
+  "language.tr": "Turc"
+}

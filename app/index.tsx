@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { AddArticleModal } from '../components/AddArticleModal';
-import { ArticlesList } from '../components/articles-list/ArticlesList';
+import { AddArticleModal } from '../components/article-list/AddArticleModal';
+import { ArticleList } from '../components/article-list/ArticleList';
 import { OpenScannerFab } from '../components/scanner/OpenScannerFab';
 import { useArticlesState } from '../context/articles.context';
 import { useCodeState } from '../context/code.context';
@@ -34,7 +34,7 @@ export default function Index() {
 
   return (
     <>
-      <ArticlesList />
+      <ArticleList />
       <OpenScannerFab />
       <AddArticleModal
         isOpen={isModalVisible}

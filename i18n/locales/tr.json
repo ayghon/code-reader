@@ -1,0 +1,21 @@
+{
+  "app.layout.index.header_title": "Mal listesi",
+  "app.index.modal.add_article.create.save": "Ekle",
+  "app.index.modal.add_article.create.title": "{label} için yeni giriş ekle",
+  "app.index.modal.add_article.edit.save": "Düzenle",
+  "app.index.modal.add_article.edit.title": "{code} girişi düzenle",
+  "app.index.modal.add_article.input.label.label": "Ad",
+  "app.index.modal.add_article.input.price.label": "Alım fiyati",
+  "app.index.article_list.empty": "Veri yok",
+  "pagination.rows_per_page": "Sayfa başına satır",
+  "app.index.article_list.column_header.label": "Ad",
+  "app.index.article_list.column_header.price": "Fiyat",
+  "permissions.camera.not_granted.explanation": "Kamerayı göstermek için izninize ihtiyacımız var.",
+  "permissions.camera.not_granted.grant": "İzin ver",
+  "app.index.article_list.swipe.delete": "Sil",
+  "app.index.article_list.swipe.edit": "Düzenle",
+  "NSCameraUsageDescription": "$(PRODUCT_NAME) ürününün kameraya erişmesine izin verin.",
+  "language.en": "İngilizce",
+  "language.fr": "Fransızca",
+  "language.tr": "Türkçe"
+}

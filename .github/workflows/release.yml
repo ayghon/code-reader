@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npm semantic-release
+      - run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

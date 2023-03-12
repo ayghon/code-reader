@@ -2,7 +2,7 @@ name: Release
 'on':
   push:
     branches:
-      - main
+      - master
 jobs:
   release:
     name: release
@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npm run semantic-release
+      - run: npm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

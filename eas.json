@@ -2,12 +2,6 @@
   "build": {
     "preview": {
       "distribution": "internal"
-    },
-    "beta": {
-      "distribution": "internal",
-      "android": {
-        "buildType": "app-bundle"
-      }
     }
   }
 }

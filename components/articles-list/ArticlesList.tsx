@@ -1,26 +1,21 @@
-import { Center } from 'native-base';
+import { Center, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
 import { ArticleRow } from './ArticleRow';
 import { ArticlesHeaderName, ArticlesTableHeader } from './ArticlesTableHeader';
 import { useArticlesState } from '../../context/articles.context';
-import { i18nKeys } from '../../i18n/keys';
 import { Article } from '../../types';
-import { Pagination } from '../../ui/Pagination';
-import { ScreenLoader } from '../../ui/ScreenLoader';
 import { sortArticles } from '../../utils/articles-sort';
 import { SortDirection, useHeaderSort } from '../../utils/header-sort';
+import { Pagination } from '../Pagination';
 
 const pageOptions = [5, 10, 20, 50, 100];
 
-export const ArticleList = () => {
+export const ArticlesList = () => {
   const [page, setPage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(pageOptions[1]);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const { t } = useTranslation();
-
   const { headerSortDirection, sortColumn } =
     useHeaderSort<ArticlesHeaderName>();
   const { articles, isLoading, editArticle } = useArticlesState();
@@ -40,7 +35,11 @@ export const ArticleList = () => {
   ).slice(page * itemsPerPage, page * itemsPerPage + itemsPerPage);
 
   if (isLoading) {
-    return <ScreenLoader />;
+    return (
+      <Center height="80%">
+        <Spinner />
+      </Center>
+    );
   }
 
   return (
@@ -51,11 +50,7 @@ export const ArticleList = () => {
           sortColumn={sortColumn}
         />
       }
-      ListEmptyComponent={() => (
-        <Center height="100%">
-          {t(i18nKeys.app.index.article_list.empty)}
-        </Center>
-      )}
+      ListEmptyComponent={() => <Center height="100%">No data</Center>}
       stickyHeaderIndices={[0]}
       ListHeaderComponentStyle={{
         backgroundColor: 'white',

@@ -16,7 +16,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
       {...rest}
       render={({
         fieldState: { error, invalid },
-        field: { onChange, ref, ...field },
+        field: { onChange, ...field },
       }) => (
         <Input
           {...inputProps}

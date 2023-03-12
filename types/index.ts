@@ -6,5 +6,4 @@ export type Article = {
 
 export enum StorageKeys {
   Articles = 'articles',
-  Language = 'language',
 }

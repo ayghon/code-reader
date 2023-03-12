@@ -3,10 +3,11 @@ import { NativeBaseProvider } from 'native-base';
 
 import { ArticlesProvider } from '../context/articles.context';
 import { CodeProvider } from '../context/code.context';
+import { customTheme } from '../ui/theme/customTheme';
 
 export default function Layout() {
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={customTheme}>
       <ArticlesProvider>
         <CodeProvider>
           <Stack>

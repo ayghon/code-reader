@@ -1,9 +1,9 @@
 {
   "app.layout.index.header_title": "Liste d'articles",
   "app.index.modal.add_article.create.save": "Ajouter",
-  "app.index.modal.add_article.create.title": "Ajouter une entrée pour: {label}",
+  "app.index.modal.add_article.create.title": "Ajouter une entrée pour: {{code}}",
   "app.index.modal.add_article.edit.save": "Modifier",
-  "app.index.modal.add_article.edit.title": "Modifier l'entrée: {code}",
+  "app.index.modal.add_article.edit.title": "Modifier l'entrée: {{label}}",
   "app.index.modal.add_article.input.label.label": "Label",
   "app.index.modal.add_article.input.price.label": "Prix d'achat",
   "app.index.article_list.empty": "Aucune data",

@@ -6,7 +6,10 @@ import React from 'react';
 export const OpenScannerFab = () => {
   return (
     <Link href="scanner" asChild>
-      <Fab icon={<Icon as={<MaterialIcons name="add" />} />}>
+      <Fab
+        marginRight={4}
+        marginBottom={4}
+        icon={<Icon as={<MaterialIcons name="add" />} />}>
         <Icon name="barcode-scan" />
       </Fab>
     </Link>

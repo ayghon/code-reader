@@ -1,9 +1,9 @@
 {
   "app.layout.index.header_title": "Mal listesi",
   "app.index.modal.add_article.create.save": "Ekle",
-  "app.index.modal.add_article.create.title": "{label} için yeni giriş ekle",
+  "app.index.modal.add_article.create.title": "{{code}} için yeni giriş ekle",
   "app.index.modal.add_article.edit.save": "Düzenle",
-  "app.index.modal.add_article.edit.title": "{code} girişi düzenle",
+  "app.index.modal.add_article.edit.title": "{{label}} girişi düzenle",
   "app.index.modal.add_article.input.label.label": "Ad",
   "app.index.modal.add_article.input.price.label": "Alım fiyati",
   "app.index.article_list.empty": "Veri yok",

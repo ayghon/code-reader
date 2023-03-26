@@ -39,8 +39,8 @@ export const ArticleRow: FC<ArticleRowProps> = ({
               swipeable.close();
             }
           }}
-          renderLeftActions={SwipeDeleteAction}
-          renderRightActions={SwipeEditAction}>
+          renderLeftActions={() => <SwipeDeleteAction />}
+          renderRightActions={() => <SwipeEditAction />}>
           <Row backgroundColor="white" paddingX={4} paddingY={2}>
             <Flex direction="row" width="80%" alignItems="center">
               <Text>{label}</Text>

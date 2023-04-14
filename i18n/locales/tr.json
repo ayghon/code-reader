@@ -18,5 +18,10 @@
   "language.en": "İngilizce",
   "language.fr": "Fransızca",
   "language.tr": "Türkçe",
-  "app.layout.shopping_cart.header_title": "Alışveriş Sepeti"
+  "app.layout.shopping_cart.header_title": "Alışveriş Sepeti",
+  "app.shopping_cart.list.footer.clear": "Sil",
+  "app.shopping_cart.list.footer.total": "Toplam: {{price}} {{currency}}",
+  "app.shopping_cart.modal.confirm_clear.confirm": "Onayla",
+  "app.shopping_cart.modal.confirm_clear.message": "Bu eylem geri alınamaz !",
+  "app.shopping_cart.modal.confirm_clear.title": "Sepeti temizle"
 }

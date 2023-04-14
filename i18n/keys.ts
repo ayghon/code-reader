@@ -44,6 +44,21 @@ export const i18nKeys = {
         header_title: 'app.layout.shopping_cart.header_title',
       },
     },
+    shopping_cart: {
+      list: {
+        footer: {
+          clear: 'app.shopping_cart.list.footer.clear',
+          total: 'app.shopping_cart.list.footer.total',
+        },
+      },
+      modal: {
+        confirm_clear: {
+          confirm: 'app.shopping_cart.modal.confirm_clear.confirm',
+          message: 'app.shopping_cart.modal.confirm_clear.message',
+          title: 'app.shopping_cart.modal.confirm_clear.title',
+        },
+      },
+    },
   },
   language: {
     en: 'language.en',

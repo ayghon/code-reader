@@ -1,8 +1,9 @@
-import { FlatList, Row, Text } from 'native-base';
+import { FlatList } from 'native-base';
 import React from 'react';
 
 import { AddArticle } from '../components/AddArticle';
 import { ArticleRow } from '../components/ArticleRow';
+import { ShoppingCartFooter } from '../components/shopping-cart/ShoppingCartFooter';
 import { useArticlesState } from '../context/articles.context';
 
 export default function ShoppingCart() {
@@ -17,11 +18,7 @@ export default function ShoppingCart() {
       <FlatList
         paddingX={4}
         paddingY={2}
-        ListFooterComponent={
-          <Row marginTop={4} justifyContent="flex-end">
-            <Text>Total: {total} €</Text>
-          </Row>
-        }
+        ListFooterComponent={<ShoppingCartFooter total={total} />}
         data={shoppingCart}
         renderItem={({ item: { id, label, price } }) => (
           <ArticleRow id={id} label={label} price={price} />

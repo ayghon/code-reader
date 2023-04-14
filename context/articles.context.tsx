@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react';
 
-import { Article, StorageKeys } from '../types';
+import { Article, ShoppingCart, StorageKeys } from '../types';
 
 type ArticlesContextState = {
   articles: Article[];
@@ -15,10 +15,15 @@ type ArticlesContextState = {
   removeArticle: (id: string) => void;
   editArticle: (id: string, data: Article) => void;
   isLoading: boolean;
+  shoppingCart: ShoppingCart;
+  addToCart: (id: string) => void;
+  removeFromCart: (id: string) => void;
+  reduceQuantityFromCart: (id: string) => void;
 };
 
 const useProvideArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [shoppingCart, setShoppingCart] = useState<ShoppingCart>([]);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -66,7 +71,88 @@ const useProvideArticles = () => {
     setArticles(newArticles);
   };
 
-  return { articles, addArticle, removeArticle, editArticle, isLoading };
+  const addToCart = async (id: string) => {
+    const article = articles.find((article) => article.id === id);
+
+    if (!article) {
+      return;
+    }
+
+    let newShoppingCart: ShoppingCart;
+
+    const itemInCart = shoppingCart.find((item) => item.id === id);
+    if (!itemInCart) {
+      newShoppingCart = [...shoppingCart, { ...article, quantity: 1 }];
+    } else {
+      newShoppingCart = shoppingCart.map((item) => {
+        if (item.id === id) {
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+    }
+
+    setShoppingCart(newShoppingCart);
+    await AsyncStorage.setItem(
+      StorageKeys.ShoppingCart,
+      JSON.stringify(newShoppingCart)
+    );
+  };
+
+  const removeFromCart = async (id: string) => {
+    const articleInCart = shoppingCart.find((item) => item.id === id);
+
+    if (!articleInCart) {
+      return;
+    }
+
+    const newShoppingCart = shoppingCart.filter((item) => item.id !== id);
+
+    setShoppingCart(newShoppingCart);
+    await AsyncStorage.setItem(
+      StorageKeys.ShoppingCart,
+      JSON.stringify(newShoppingCart)
+    );
+  };
+
+  const reduceQuantityFromCart = async (id: string) => {
+    const articleInCart = shoppingCart.find((item) => item.id === id);
+
+    if (!articleInCart) {
+      return;
+    }
+
+    if (articleInCart.quantity === 1) {
+      await removeFromCart(id);
+
+      return;
+    }
+
+    const newShoppingCart = shoppingCart.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantity: item.quantity > 0 ? item.quantity - 1 : 0 };
+      }
+      return item;
+    });
+
+    setShoppingCart(newShoppingCart);
+    await AsyncStorage.setItem(
+      StorageKeys.ShoppingCart,
+      JSON.stringify(newShoppingCart)
+    );
+  };
+
+  return {
+    articles,
+    addArticle,
+    removeArticle,
+    editArticle,
+    isLoading,
+    shoppingCart,
+    addToCart,
+    removeFromCart,
+    reduceQuantityFromCart,
+  };
 };
 
 const ArticlesContext = createContext<ArticlesContextState>({
@@ -74,6 +160,10 @@ const ArticlesContext = createContext<ArticlesContextState>({
   editArticle: () => null,
   removeArticle: () => null,
   addArticle: () => null,
+  addToCart: () => null,
+  removeFromCart: () => null,
+  reduceQuantityFromCart: () => null,
+  shoppingCart: [],
   isLoading: false,
 });
 

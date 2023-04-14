@@ -40,6 +40,9 @@ export const i18nKeys = {
       index: {
         header_title: 'app.layout.index.header_title',
       },
+      shopping_cart: {
+        header_title: 'app.layout.shopping_cart.header_title',
+      },
     },
   },
   language: {

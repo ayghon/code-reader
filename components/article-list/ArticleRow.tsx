@@ -1,8 +1,10 @@
-import { Column, Divider, Flex, Row, Text } from 'native-base';
+import { Column, Divider, Pressable, Row } from 'native-base';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { AddArticleModal } from './AddArticleModal';
+import { ArticleLabelCell } from './ArticleLabelCell';
+import { ArticlePriceCell } from './ArticlePriceCell';
 import { SwipeDeleteAction } from './SwipeDeleteAction';
 import { SwipeEditAction } from './SwipeEditAction';
 import { useArticlesState } from '../../context/articles.context';
@@ -25,7 +27,7 @@ export const ArticleRow: FC<ArticleRowProps> = ({
   setEditModalOpen,
   handleEdit,
 }) => {
-  const { removeArticle } = useArticlesState();
+  const { removeArticle, addToCart } = useArticlesState();
 
   return (
     <>
@@ -41,17 +43,15 @@ export const ArticleRow: FC<ArticleRowProps> = ({
           }}
           renderLeftActions={() => <SwipeDeleteAction />}
           renderRightActions={() => <SwipeEditAction />}>
-          <Row backgroundColor="white" paddingX={4} paddingY={2}>
-            <Flex direction="row" width="80%" alignItems="center">
-              <Text>{label}</Text>
-              <Text fontSize={11} color="text.400" marginLeft={2}>
-                {id}
-              </Text>
-            </Flex>
-            <Flex width="20%">
-              <Text textAlign="center">{price} €</Text>
-            </Flex>
-          </Row>
+          <Pressable
+            _pressed={{ backgroundColor: 'gray.100' }}
+            backgroundColor="white"
+            onPress={() => addToCart(id)}>
+            <Row paddingX={4} paddingY={2}>
+              <ArticleLabelCell label={label} id={id} />
+              <ArticlePriceCell price={price} id={id} />
+            </Row>
+          </Pressable>
         </Swipeable>
         <Divider />
       </Column>

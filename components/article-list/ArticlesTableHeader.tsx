@@ -25,7 +25,7 @@ export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({
   return (
     <Row paddingX={4} paddingY={2}>
       <Pressable
-        width="80%"
+        width="65%"
         onPress={() => sortColumn(ArticlesHeaderName.Label)}>
         <Flex direction="row" align="center">
           <Text>{t(i18nKeys.app.index.article_list.column_header.label)}</Text>
@@ -44,7 +44,7 @@ export const ArticlesTableHeader: FC<ArticlesTableHeaderProps> = ({
         </Flex>
       </Pressable>
       <Pressable
-        width="20%"
+        width="35%"
         alignItems="center"
         onPress={() => sortColumn(ArticlesHeaderName.Price)}>
         <Flex align="center" direction="row">

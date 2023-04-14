@@ -5,6 +5,9 @@ export type Article = {
 };
 
 export enum StorageKeys {
-  Articles = 'articles',
-  Language = 'language',
+  Articles = '@articles',
+  Language = '@language',
+  ShoppingCart = '@shopping-cart',
 }
+
+export type ShoppingCart = (Article & { quantity: number })[];

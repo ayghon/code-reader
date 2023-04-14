@@ -12,6 +12,7 @@
   "app.index.modal.add_article.input.label.label": "Label",
   "app.index.modal.add_article.input.price.label": "Buying price",
   "app.layout.index.header_title": "Article list",
+  "app.layout.shopping_cart.header_title": "Shopping cart",
   "language.en": "English",
   "language.fr": "French",
   "language.tr": "Turkish",

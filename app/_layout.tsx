@@ -3,7 +3,7 @@ import { t as globalT } from 'i18next';
 import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 
-import { LanguageSelector } from '../components/LanguageSelector';
+import { ArticleListHeaderRight } from '../components/article-list/ArticleListHeaderRight';
 import { ArticlesProvider } from '../context/articles.context';
 import { CodeProvider } from '../context/code.context';
 import { useInitI18n } from '../i18n/init-i18n';
@@ -26,16 +26,23 @@ export default function Layout() {
     <NativeBaseProvider theme={customTheme}>
       <ArticlesProvider>
         <CodeProvider>
-          <Stack
-            screenOptions={{
-              headerRight: LanguageSelector,
-            }}>
+          <Stack>
             <Stack.Screen
               name="index"
               options={{
                 headerTitle: (t || globalT)(
                   i18nKeys.app.layout.index.header_title
                 ),
+                headerRight: ArticleListHeaderRight,
+              }}
+            />
+            <Stack.Screen
+              name="shopping-cart"
+              options={{
+                headerTitle: (t || globalT)(
+                  i18nKeys.app.layout.shopping_cart.header_title
+                ),
+                presentation: 'modal',
               }}
             />
             <Stack.Screen

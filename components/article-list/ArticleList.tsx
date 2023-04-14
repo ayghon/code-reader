@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 
-import { ArticleRow } from './ArticleRow';
 import { ArticlesHeaderName, ArticlesTableHeader } from './ArticlesTableHeader';
+import { SwipeableArticleRow } from './SwipeableArticleRow';
 import { useArticlesState } from '../../context/articles.context';
 import { i18nKeys } from '../../i18n/keys';
 import { Article } from '../../types';
@@ -74,7 +74,7 @@ export const ArticleList = () => {
         />
       }
       renderItem={({ item: { id, label, price } }) => (
-        <ArticleRow
+        <SwipeableArticleRow
           handleEdit={handleEdit}
           setEditModalOpen={setEditModalOpen}
           isEditModalOpen={isEditModalOpen}

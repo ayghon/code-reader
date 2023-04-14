@@ -11,6 +11,8 @@ import { Modal } from '../../ui/Modal';
 import { validationRules } from '../../utils/validation';
 import { ControlledInput } from '../ControlledInput';
 
+type AddArticleFormState = Omit<Article, 'price'> & { price?: string };
+
 type AddArticleModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -29,8 +31,8 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
   const { t } = useTranslation();
   const { code, setCode } = useCodeState();
 
-  const methods = useForm<Article>({
-    defaultValues: values || {
+  const methods = useForm<AddArticleFormState>({
+    defaultValues: { ...values, price: values?.price.toString() } || {
       id: code,
       label: '',
       price: undefined,
@@ -45,11 +47,17 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
     onClose();
   };
 
-  const saveHandler = (formValues: Article) => {
+  const saveHandler = (formValues: AddArticleFormState) => {
+    const parsedValues: Article = {
+      ...formValues,
+      price: parseFloat(
+        parseFloat(String(formValues.price).replace(',', '.')).toFixed(2)
+      ),
+    };
     if (code) {
-      onSave({ ...formValues, id: code });
+      onSave({ ...parsedValues, id: code });
     } else {
-      onSave(formValues);
+      onSave(parsedValues);
     }
 
     closeHandler();

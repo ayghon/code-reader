@@ -17,5 +17,6 @@
   "NSCameraUsageDescription": "$(PRODUCT_NAME) ürününün kameraya erişmesine izin verin.",
   "language.en": "İngilizce",
   "language.fr": "Fransızca",
-  "language.tr": "Türkçe"
+  "language.tr": "Türkçe",
+  "app.layout.shopping_cart.header_title": "Alışveriş Sepeti"
 }

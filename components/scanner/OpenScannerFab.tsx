@@ -7,6 +7,7 @@ export const OpenScannerFab = () => {
   return (
     <Link href="scanner" asChild>
       <Fab
+        renderInPortal={false}
         marginRight={4}
         marginBottom={4}
         icon={<Icon as={<MaterialIcons name="add" />} />}>

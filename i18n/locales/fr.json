@@ -17,5 +17,6 @@
   "NSCameraUsageDescription": "Autoriser $(PRODUCT_NAME) à accéder à votre microphone",
   "language.en": "Anglais",
   "language.fr": "Français",
-  "language.tr": "Turc"
+  "language.tr": "Turc",
+  "app.layout.shopping_cart.header_title": "Panier"
 }

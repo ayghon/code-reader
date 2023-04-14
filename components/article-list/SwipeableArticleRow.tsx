@@ -1,4 +1,4 @@
-import { Column, Divider, Flex, Row, Text } from 'native-base';
+import { Column, Divider, Pressable } from 'native-base';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Swipeable } from 'react-native-gesture-handler';
 
@@ -7,8 +7,9 @@ import { SwipeDeleteAction } from './SwipeDeleteAction';
 import { SwipeEditAction } from './SwipeEditAction';
 import { useArticlesState } from '../../context/articles.context';
 import { Article } from '../../types';
+import { ArticleRow } from '../ArticleRow';
 
-type ArticleRowProps = {
+type SwipeableArticleRowProps = {
   id: string;
   label: string;
   price: number;
@@ -17,7 +18,7 @@ type ArticleRowProps = {
   handleEdit: (values: Article) => void;
 };
 
-export const ArticleRow: FC<ArticleRowProps> = ({
+export const SwipeableArticleRow: FC<SwipeableArticleRowProps> = ({
   label,
   price,
   id,
@@ -25,7 +26,7 @@ export const ArticleRow: FC<ArticleRowProps> = ({
   setEditModalOpen,
   handleEdit,
 }) => {
-  const { removeArticle } = useArticlesState();
+  const { removeArticle, addToCart } = useArticlesState();
 
   return (
     <>
@@ -41,17 +42,18 @@ export const ArticleRow: FC<ArticleRowProps> = ({
           }}
           renderLeftActions={() => <SwipeDeleteAction />}
           renderRightActions={() => <SwipeEditAction />}>
-          <Row backgroundColor="white" paddingX={4} paddingY={2}>
-            <Flex direction="row" width="80%" alignItems="center">
-              <Text>{label}</Text>
-              <Text fontSize={11} color="text.400" marginLeft={2}>
-                {id}
-              </Text>
-            </Flex>
-            <Flex width="20%">
-              <Text textAlign="center">{price} €</Text>
-            </Flex>
-          </Row>
+          <Pressable
+            _pressed={{ backgroundColor: 'gray.100' }}
+            backgroundColor="white"
+            onPress={() => addToCart(id)}>
+            <ArticleRow
+              paddingX={4}
+              paddingY={2}
+              id={id}
+              label={label}
+              price={price}
+            />
+          </Pressable>
         </Swipeable>
         <Divider />
       </Column>

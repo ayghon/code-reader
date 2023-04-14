@@ -10,9 +10,8 @@ export const OpenScannerFab = () => {
         renderInPortal={false}
         marginRight={4}
         marginBottom={4}
-        icon={<Icon as={<MaterialIcons name="add" />} />}>
-        <Icon name="barcode-scan" />
-      </Fab>
+        icon={<Icon as={<MaterialIcons name="qr-code-scanner" />} />}
+      />
     </Link>
   );
 };

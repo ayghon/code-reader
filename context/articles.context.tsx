@@ -20,6 +20,7 @@ type ArticlesContextState = {
   addToCart: (id: string) => Promise<void>;
   removeFromCart: (id: string) => Promise<void>;
   reduceQuantityFromCart: (id: string) => Promise<void>;
+  clearCart: () => Promise<void>;
 };
 
 const useProvideArticles = () => {
@@ -170,6 +171,11 @@ const useProvideArticles = () => {
     );
   };
 
+  const clearCart = async () => {
+    await AsyncStorage.removeItem(StorageKeys.ShoppingCart);
+    setShoppingCart([]);
+  };
+
   return {
     articles,
     addArticle,
@@ -180,6 +186,7 @@ const useProvideArticles = () => {
     addToCart,
     removeFromCart,
     reduceQuantityFromCart,
+    clearCart,
   };
 };
 
@@ -191,6 +198,7 @@ const ArticlesContext = createContext<ArticlesContextState>({
   addToCart: () => Promise.resolve(),
   removeFromCart: () => Promise.resolve(),
   reduceQuantityFromCart: () => Promise.resolve(),
+  clearCart: () => Promise.resolve(),
   shoppingCart: [],
   isLoading: false,
 });

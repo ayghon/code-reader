@@ -8,17 +8,18 @@ import {
 } from 'react';
 
 import { Article, ShoppingCart, StorageKeys } from '../types';
+import { getParsedStorageData } from '../utils/storage';
 
 type ArticlesContextState = {
   articles: Article[];
-  addArticle: (data: Article) => void;
-  removeArticle: (id: string) => void;
-  editArticle: (id: string, data: Article) => void;
+  addArticle: (data: Article) => Promise<void>;
+  removeArticle: (id: string) => Promise<void>;
+  editArticle: (id: string, data: Article) => Promise<void>;
   isLoading: boolean;
   shoppingCart: ShoppingCart;
-  addToCart: (id: string) => void;
-  removeFromCart: (id: string) => void;
-  reduceQuantityFromCart: (id: string) => void;
+  addToCart: (id: string) => Promise<void>;
+  removeFromCart: (id: string) => Promise<void>;
+  reduceQuantityFromCart: (id: string) => Promise<void>;
 };
 
 const useProvideArticles = () => {
@@ -54,6 +55,15 @@ const useProvideArticles = () => {
       JSON.stringify(newArticles)
     );
     setArticles(newArticles);
+
+    const newShoppingCart: ShoppingCart = shoppingCart.filter(
+      (item) => item.id !== id
+    );
+    await AsyncStorage.setItem(
+      StorageKeys.ShoppingCart,
+      JSON.stringify(newShoppingCart)
+    );
+    setShoppingCart(newShoppingCart);
   };
 
   const editArticle = async (id: string, data: Article) => {
@@ -69,11 +79,29 @@ const useProvideArticles = () => {
       JSON.stringify(newArticles)
     );
     setArticles(newArticles);
+
+    const newShoppingCart: ShoppingCart = shoppingCart.map((item) => {
+      if (item.id === id) {
+        return { ...item, ...data };
+      }
+      return item;
+    });
+    await AsyncStorage.setItem(
+      StorageKeys.ShoppingCart,
+      JSON.stringify(newShoppingCart)
+    );
+    setShoppingCart(newShoppingCart);
   };
 
   const addToCart = async (id: string) => {
-    const article = articles.find((article) => article.id === id);
+    const parsedArticles = await getParsedStorageData<Article[]>(
+      StorageKeys.Articles
+    );
+    if (!parsedArticles) {
+      return;
+    }
 
+    const article = parsedArticles.find((article) => article.id === id);
     if (!article) {
       return;
     }
@@ -157,12 +185,12 @@ const useProvideArticles = () => {
 
 const ArticlesContext = createContext<ArticlesContextState>({
   articles: [],
-  editArticle: () => null,
-  removeArticle: () => null,
-  addArticle: () => null,
-  addToCart: () => null,
-  removeFromCart: () => null,
-  reduceQuantityFromCart: () => null,
+  editArticle: () => Promise.resolve(),
+  removeArticle: () => Promise.resolve(),
+  addArticle: () => Promise.resolve(),
+  addToCart: () => Promise.resolve(),
+  removeFromCart: () => Promise.resolve(),
+  reduceQuantityFromCart: () => Promise.resolve(),
   shoppingCart: [],
   isLoading: false,
 });

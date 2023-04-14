@@ -3,6 +3,7 @@ import { t as globalT } from 'i18next';
 import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 
+import { LanguageSelector } from '../components/LanguageSelector';
 import { ArticleListHeaderRight } from '../components/article-list/ArticleListHeaderRight';
 import { ArticlesProvider } from '../context/articles.context';
 import { CodeProvider } from '../context/code.context';
@@ -39,10 +40,10 @@ export default function Layout() {
             <Stack.Screen
               name="shopping-cart"
               options={{
+                headerRight: () => <LanguageSelector />,
                 headerTitle: (t || globalT)(
                   i18nKeys.app.layout.shopping_cart.header_title
                 ),
-                presentation: 'modal',
               }}
             />
             <Stack.Screen

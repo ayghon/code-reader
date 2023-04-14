@@ -1,16 +1,15 @@
-import { Column, Divider, Pressable, Row } from 'native-base';
+import { Column, Divider, Pressable } from 'native-base';
 import React, { Dispatch, FC, SetStateAction } from 'react';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { AddArticleModal } from './AddArticleModal';
-import { ArticleLabelCell } from './ArticleLabelCell';
-import { ArticlePriceCell } from './ArticlePriceCell';
 import { SwipeDeleteAction } from './SwipeDeleteAction';
 import { SwipeEditAction } from './SwipeEditAction';
 import { useArticlesState } from '../../context/articles.context';
 import { Article } from '../../types';
+import { ArticleRow } from '../ArticleRow';
 
-type ArticleRowProps = {
+type SwipeableArticleRowProps = {
   id: string;
   label: string;
   price: number;
@@ -19,7 +18,7 @@ type ArticleRowProps = {
   handleEdit: (values: Article) => void;
 };
 
-export const ArticleRow: FC<ArticleRowProps> = ({
+export const SwipeableArticleRow: FC<SwipeableArticleRowProps> = ({
   label,
   price,
   id,
@@ -47,10 +46,13 @@ export const ArticleRow: FC<ArticleRowProps> = ({
             _pressed={{ backgroundColor: 'gray.100' }}
             backgroundColor="white"
             onPress={() => addToCart(id)}>
-            <Row paddingX={4} paddingY={2}>
-              <ArticleLabelCell label={label} id={id} />
-              <ArticlePriceCell price={price} id={id} />
-            </Row>
+            <ArticleRow
+              paddingX={4}
+              paddingY={2}
+              id={id}
+              label={label}
+              price={price}
+            />
           </Pressable>
         </Swipeable>
         <Divider />

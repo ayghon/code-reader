@@ -18,5 +18,10 @@
   "language.en": "Anglais",
   "language.fr": "Français",
   "language.tr": "Turc",
-  "app.layout.shopping_cart.header_title": "Panier"
+  "app.layout.shopping_cart.header_title": "Panier",
+  "app.shopping_cart.list.footer.clear": "Vider",
+  "app.shopping_cart.list.footer.total": "Total: {{price}} {{currency}}",
+  "app.shopping_cart.modal.confirm_clear.confirm": "Confirmer",
+  "app.shopping_cart.modal.confirm_clear.message": "Cette action est irréversible !",
+  "app.shopping_cart.modal.confirm_clear.title": "Vider le panier"
 }

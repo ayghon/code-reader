@@ -1,8 +1,10 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button, Icon, Row, Text } from 'native-base';
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useArticlesState } from '../../context/articles.context';
+import { i18nKeys } from '../../i18n/keys';
 import { Modal } from '../../ui/Modal';
 
 type ShoppingCartFooterProps = {
@@ -10,6 +12,7 @@ type ShoppingCartFooterProps = {
 };
 
 export const ShoppingCartFooter: FC<ShoppingCartFooterProps> = ({ total }) => {
+  const { t } = useTranslation();
   const { shoppingCart, clearCart } = useArticlesState();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,21 +33,26 @@ export const ShoppingCartFooter: FC<ShoppingCartFooterProps> = ({ total }) => {
             onPress={() => setIsOpen(true)}
             variant="ghost"
             startIcon={<Icon as={MaterialIcons} name="clear" />}>
-            Clear
+            {t(i18nKeys.app.shopping_cart.list.footer.clear)}
           </Button>
         )}
-        <Text>Total: {total} €</Text>
+        <Text>
+          {t(i18nKeys.app.shopping_cart.list.footer.total, {
+            price: total,
+            currency: '€',
+          })}
+        </Text>
       </Row>
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Empty cart"
+        title={t(i18nKeys.app.shopping_cart.modal.confirm_clear.title)}
         footerButtons={[
           <Button key="confirm-clear-cart" onPress={onClear} variant="solid">
-            Confirm
+            {t(i18nKeys.app.shopping_cart.modal.confirm_clear.confirm)}
           </Button>,
         ]}>
-        <Text>This action is irreversible !</Text>
+        <Text>{t(i18nKeys.app.shopping_cart.modal.confirm_clear.message)}</Text>
       </Modal>
     </>
   );

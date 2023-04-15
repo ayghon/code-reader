@@ -1,5 +1,5 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Button, Icon, Row, Text } from 'native-base';
+import { Button, Column, Icon, Row, Spinner, Text } from 'native-base';
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,9 +9,13 @@ import { Modal } from '../../ui/Modal';
 
 type ShoppingCartFooterProps = {
   total: number;
+  isLoading?: boolean;
 };
 
-export const ShoppingCartFooter: FC<ShoppingCartFooterProps> = ({ total }) => {
+export const ShoppingCartFooter: FC<ShoppingCartFooterProps> = ({
+  total,
+  isLoading,
+}) => {
   const { t } = useTranslation();
   const { shoppingCart, clearCart } = useArticlesState();
   const [isOpen, setIsOpen] = useState(false);
@@ -23,26 +27,29 @@ export const ShoppingCartFooter: FC<ShoppingCartFooterProps> = ({ total }) => {
 
   return (
     <>
-      <Row
-        marginTop={4}
-        justifyContent="flex-end"
-        alignItems="center"
-        space="sm">
-        {shoppingCart.length > 0 && (
-          <Button
-            onPress={() => setIsOpen(true)}
-            variant="ghost"
-            startIcon={<Icon as={MaterialIcons} name="clear" />}>
-            {t(i18nKeys.app.shopping_cart.list.footer.clear)}
-          </Button>
-        )}
-        <Text>
-          {t(i18nKeys.app.shopping_cart.list.footer.total, {
-            price: total,
-            currency: '€',
-          })}
-        </Text>
-      </Row>
+      <Column>
+        {isLoading && <Spinner />}
+        <Row
+          marginTop={4}
+          justifyContent="flex-end"
+          alignItems="center"
+          space="sm">
+          {shoppingCart.length > 0 && (
+            <Button
+              onPress={() => setIsOpen(true)}
+              variant="ghost"
+              startIcon={<Icon as={MaterialIcons} name="clear" />}>
+              {t(i18nKeys.app.shopping_cart.list.footer.clear)}
+            </Button>
+          )}
+          <Text>
+            {t(i18nKeys.app.shopping_cart.list.footer.total, {
+              price: total,
+              currency: '€',
+            })}
+          </Text>
+        </Row>
+      </Column>
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}

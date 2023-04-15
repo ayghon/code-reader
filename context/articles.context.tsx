@@ -30,90 +30,94 @@ const useProvideArticles = () => {
 
   useEffect(() => {
     setLoading(true);
-    AsyncStorage.getItem(StorageKeys.Articles)
-      .then((articles) => {
-        if (articles) {
-          const parsedArticles = JSON.parse(articles) as Article[];
+    getParsedStorageData<Article[]>(StorageKeys.Articles)
+      .then((parsedArticles) => {
+        if (parsedArticles) {
           setArticles(parsedArticles);
         }
       })
       .finally(() => setLoading(false));
   }, []);
 
+  const saveArticlesInContext = async (data: Article[]) => {
+    await AsyncStorage.setItem(StorageKeys.Articles, JSON.stringify(data));
+    setArticles(data);
+  };
+  const saveShoppingCartInContext = async (data: ShoppingCart) => {
+    await AsyncStorage.setItem(StorageKeys.ShoppingCart, JSON.stringify(data));
+    setShoppingCart(data);
+  };
+
   const addArticle = async (data: Article) => {
-    const newArticles = [...articles, data];
-    await AsyncStorage.setItem(
-      StorageKeys.Articles,
-      JSON.stringify(newArticles)
-    );
-    setArticles(newArticles);
+    const parsedArticles =
+      (await getParsedStorageData<Article[]>(StorageKeys.Articles)) || articles;
+    const newArticles = [...parsedArticles, data];
+    await saveArticlesInContext(newArticles);
   };
 
   const removeArticle = async (id: string) => {
-    const newArticles = articles.filter((it) => it.id !== id);
-    await AsyncStorage.setItem(
-      StorageKeys.Articles,
-      JSON.stringify(newArticles)
-    );
-    setArticles(newArticles);
+    const parsedArticles =
+      (await getParsedStorageData<Article[]>(StorageKeys.Articles)) || articles;
+    const newArticles = parsedArticles.filter((it) => it.id !== id);
+    await saveArticlesInContext(newArticles);
 
-    const newShoppingCart: ShoppingCart = shoppingCart.filter(
+    const parsedShoppingCart =
+      (await getParsedStorageData<ShoppingCart>(StorageKeys.ShoppingCart)) ||
+      shoppingCart;
+    const newShoppingCart: ShoppingCart = parsedShoppingCart.filter(
       (item) => item.id !== id
     );
-    await AsyncStorage.setItem(
-      StorageKeys.ShoppingCart,
-      JSON.stringify(newShoppingCart)
-    );
-    setShoppingCart(newShoppingCart);
+    await saveShoppingCartInContext(newShoppingCart);
   };
 
   const editArticle = async (id: string, data: Article) => {
-    const newArticles = articles.map((it) => {
+    const parsedArticles =
+      (await getParsedStorageData<Article[]>(StorageKeys.Articles)) || articles;
+    const newArticles = parsedArticles.map((it) => {
       if (it.id === id) {
         return { ...data, id };
       }
       return it;
     });
+    await saveArticlesInContext(newArticles);
 
-    await AsyncStorage.setItem(
-      StorageKeys.Articles,
-      JSON.stringify(newArticles)
-    );
-    setArticles(newArticles);
-
-    const newShoppingCart: ShoppingCart = shoppingCart.map((item) => {
+    const parsedShoppingCart =
+      (await getParsedStorageData<ShoppingCart>(StorageKeys.ShoppingCart)) ||
+      shoppingCart;
+    const newShoppingCart: ShoppingCart = parsedShoppingCart.map((item) => {
       if (item.id === id) {
         return { ...item, ...data };
       }
       return item;
     });
-    await AsyncStorage.setItem(
-      StorageKeys.ShoppingCart,
-      JSON.stringify(newShoppingCart)
-    );
-    setShoppingCart(newShoppingCart);
+    await saveShoppingCartInContext(newShoppingCart);
   };
 
   const addToCart = async (id: string) => {
-    const parsedArticles = await getParsedStorageData<Article[]>(
-      StorageKeys.Articles
-    );
+    setLoading(true);
+    const parsedArticles =
+      (await getParsedStorageData<Article[]>(StorageKeys.Articles)) || articles;
     if (!parsedArticles) {
+      setLoading(false);
       return;
     }
 
     const article = parsedArticles.find((article) => article.id === id);
     if (!article) {
+      setLoading(false);
       return;
     }
 
     let newShoppingCart: ShoppingCart;
 
-    const itemInCart = shoppingCart.find((item) => item.id === id);
+    const parsedShoppingCart =
+      (await getParsedStorageData<ShoppingCart>(StorageKeys.ShoppingCart)) ||
+      shoppingCart;
+    const itemInCart = parsedShoppingCart.find((item) => item.id === id);
     if (!itemInCart) {
-      newShoppingCart = [...shoppingCart, { ...article, quantity: 1 }];
+      newShoppingCart = [...parsedShoppingCart, { ...article, quantity: 1 }];
     } else {
-      newShoppingCart = shoppingCart.map((item) => {
+      newShoppingCart = parsedShoppingCart.map((item) => {
         if (item.id === id) {
           return { ...item, quantity: item.quantity + 1 };
         }
@@ -121,31 +125,29 @@ const useProvideArticles = () => {
       });
     }
 
-    setShoppingCart(newShoppingCart);
-    await AsyncStorage.setItem(
-      StorageKeys.ShoppingCart,
-      JSON.stringify(newShoppingCart)
-    );
+    await saveShoppingCartInContext(newShoppingCart);
+    setLoading(false);
   };
 
   const removeFromCart = async (id: string) => {
-    const articleInCart = shoppingCart.find((item) => item.id === id);
+    const parsedShoppingCart =
+      (await getParsedStorageData<ShoppingCart>(StorageKeys.ShoppingCart)) ||
+      shoppingCart;
+    const articleInCart = parsedShoppingCart.find((item) => item.id === id);
 
     if (!articleInCart) {
       return;
     }
 
-    const newShoppingCart = shoppingCart.filter((item) => item.id !== id);
-
-    setShoppingCart(newShoppingCart);
-    await AsyncStorage.setItem(
-      StorageKeys.ShoppingCart,
-      JSON.stringify(newShoppingCart)
-    );
+    const newShoppingCart = parsedShoppingCart.filter((item) => item.id !== id);
+    await saveShoppingCartInContext(newShoppingCart);
   };
 
   const reduceQuantityFromCart = async (id: string) => {
-    const articleInCart = shoppingCart.find((item) => item.id === id);
+    const parsedShoppingCart =
+      (await getParsedStorageData<ShoppingCart>(StorageKeys.ShoppingCart)) ||
+      shoppingCart;
+    const articleInCart = parsedShoppingCart.find((item) => item.id === id);
 
     if (!articleInCart) {
       return;
@@ -157,23 +159,21 @@ const useProvideArticles = () => {
       return;
     }
 
-    const newShoppingCart = shoppingCart.map((item) => {
+    const newShoppingCart = parsedShoppingCart.map((item) => {
       if (item.id === id) {
         return { ...item, quantity: item.quantity > 0 ? item.quantity - 1 : 0 };
       }
       return item;
     });
 
-    setShoppingCart(newShoppingCart);
-    await AsyncStorage.setItem(
-      StorageKeys.ShoppingCart,
-      JSON.stringify(newShoppingCart)
-    );
+    await saveShoppingCartInContext(newShoppingCart);
   };
 
   const clearCart = async () => {
+    setLoading(true);
     await AsyncStorage.removeItem(StorageKeys.ShoppingCart);
     setShoppingCart([]);
+    setLoading(false);
   };
 
   return {

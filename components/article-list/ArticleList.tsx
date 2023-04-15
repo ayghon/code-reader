@@ -1,4 +1,4 @@
-import { Center } from 'native-base';
+import { Center, Column, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
@@ -9,7 +9,6 @@ import { useArticlesState } from '../../context/articles.context';
 import { i18nKeys } from '../../i18n/keys';
 import { Article } from '../../types';
 import { Pagination } from '../../ui/Pagination';
-import { ScreenLoader } from '../../ui/ScreenLoader';
 import { sortArticles } from '../../utils/articles-sort';
 import { SortDirection, useHeaderSort } from '../../utils/header-sort';
 
@@ -39,10 +38,6 @@ export const ArticleList = () => {
       : articles
   ).slice(page * itemsPerPage, page * itemsPerPage + itemsPerPage);
 
-  if (isLoading) {
-    return <ScreenLoader />;
-  }
-
   return (
     <FlatList
       ListHeaderComponent={
@@ -64,14 +59,17 @@ export const ArticleList = () => {
       data={data}
       keyExtractor={({ id }) => id}
       ListFooterComponent={
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          page={page}
-          total={articles.length}
-          onChange={setPage}
-          pageOptions={pageOptions}
-          onPageOptionsChange={setItemsPerPage}
-        />
+        <Column mt={2}>
+          {isLoading && <Spinner />}
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            page={page}
+            total={articles.length}
+            onChange={setPage}
+            pageOptions={pageOptions}
+            onPageOptionsChange={setItemsPerPage}
+          />
+        </Column>
       }
       renderItem={({ item: { id, label, price } }) => (
         <SwipeableArticleRow

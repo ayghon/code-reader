@@ -26,8 +26,8 @@ export const AddArticle: FC<AddArticleProps> = ({ onAdd }) => {
       await editArticle(data.id, data);
     } else {
       await addArticle(data);
-      onAdd?.(data.id);
     }
+    onAdd?.(data.id);
   };
 
   useEffect(() => {

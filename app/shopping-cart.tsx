@@ -7,7 +7,7 @@ import { ShoppingCartFooter } from '../components/shopping-cart/ShoppingCartFoot
 import { useArticlesState } from '../context/articles.context';
 
 export default function ShoppingCart() {
-  const { shoppingCart, addToCart } = useArticlesState();
+  const { shoppingCart, addToCart, isLoading } = useArticlesState();
 
   const total = shoppingCart.reduce((acc, { price = 0, quantity = 0 }) => {
     return parseFloat((acc + quantity * price).toFixed(2));
@@ -18,7 +18,9 @@ export default function ShoppingCart() {
       <FlatList
         paddingX={4}
         paddingY={2}
-        ListFooterComponent={<ShoppingCartFooter total={total} />}
+        ListFooterComponent={
+          <ShoppingCartFooter total={total} isLoading={isLoading} />
+        }
         data={shoppingCart}
         renderItem={({ item: { id, label, price } }) => (
           <ArticleRow id={id} label={label} price={price} />

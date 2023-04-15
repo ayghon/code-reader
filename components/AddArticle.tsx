@@ -15,6 +15,8 @@ export const AddArticle: FC<AddArticleProps> = ({ onAdd }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const { articles, addArticle, editArticle } = useArticlesState();
 
+  const articleToEdit = articles.find((article) => article.id === code);
+
   const hideModal = () => {
     setCode(undefined);
     setModalVisible(false);
@@ -40,6 +42,8 @@ export const AddArticle: FC<AddArticleProps> = ({ onAdd }) => {
     <>
       <OpenScannerFab />
       <AddArticleModal
+        values={articleToEdit}
+        isEdit={!!articleToEdit}
         isOpen={isModalVisible}
         onSave={addNewArticle}
         onClose={hideModal}

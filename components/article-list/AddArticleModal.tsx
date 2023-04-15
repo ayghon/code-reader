@@ -32,11 +32,13 @@ export const AddArticleModal: FC<AddArticleModalProps> = ({
   const { code, setCode } = useCodeState();
 
   const methods = useForm<AddArticleFormState>({
-    defaultValues: { ...values, price: values?.price.toString() } || {
-      id: code,
-      label: '',
-      price: undefined,
-    },
+    defaultValues: isEdit
+      ? { ...values, price: values?.price.toString() }
+      : {
+          id: code,
+          label: '',
+          price: undefined,
+        },
     mode: 'all',
     criteriaMode: 'all',
   });

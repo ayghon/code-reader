@@ -1,3 +1,4 @@
+import { useIsFocused } from '@react-navigation/core';
 import { FlatList } from 'native-base';
 import React from 'react';
 
@@ -8,6 +9,7 @@ import { useArticlesState } from '../context/articles.context';
 
 export default function ShoppingCart() {
   const { shoppingCart, addToCart, isLoading } = useArticlesState();
+  const isFocused = useIsFocused();
 
   const total = shoppingCart.reduce((acc, { price = 0, quantity = 0 }) => {
     return parseFloat((acc + quantity * price).toFixed(2));
@@ -27,7 +29,7 @@ export default function ShoppingCart() {
         )}
         keyExtractor={({ id }) => id}
       />
-      <AddArticle onAdd={addToCart} />
+      {isFocused && <AddArticle onAdd={addToCart} />}
     </>
   );
 }
